@@ -5,6 +5,9 @@ require_once 'src/Controllers/AuthController.php';
 require_once 'src/Controllers/EmployeController.php';
 require_once 'src/Controllers/ServiceController.php';
 require_once 'src/Controllers/CategorieController.php';
+require_once 'src/Controllers/SpecialiteController.php';
+require_once 'src/Controllers/CongeController.php';
+require_once 'src/Controllers/PresenceController.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'login';
 
@@ -60,6 +63,60 @@ switch ($action) {
         break;
     case 'categorie_delete':
         (new CategorieController())->deleteAction();
+        break;
+
+    // Gestion des spécialités
+    case 'specialites':
+        (new SpecialiteController())->listAction();
+        break;
+    case 'specialite_add':
+        (new SpecialiteController())->addAction();
+        break;
+    case 'specialite_edit':
+        (new SpecialiteController())->editAction();
+        break;
+    case 'specialite_delete':
+        (new SpecialiteController())->deleteAction();
+        break;
+
+
+    // Gestion des congés
+    case 'conges':
+        (new CongeController())->listAction();
+        break;
+    case 'demander_conge':
+        (new CongeController())->demanderAction();
+        break;
+    case 'mes_conges':
+        (new CongeController())->mesCongesAction();
+        break;
+    case 'valider_conge':
+        (new CongeController())->validerAction();
+        break;
+    case 'supprimer_conge':
+        (new CongeController())->deleteAction();
+        break;
+
+    case 'historique_conges':
+        (new CongeController())->historiqueAction();
+        break;
+    case 'retour_conge':
+        (new CongeController())->retourAction();
+        break;
+
+    // Gestion des présences
+
+    case 'presence_dashboard':
+        (new PresenceController())->dashboardAction();
+        break;
+    case 'presence_pointer':
+        (new PresenceController())->pointerAction();
+        break;
+    case 'presence_historique':
+        (new PresenceController())->historiqueAction();
+        break;
+    case 'presence_modifier':
+        (new PresenceController())->modifierAction();
         break;
 
     default:
