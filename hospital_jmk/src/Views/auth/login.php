@@ -449,7 +449,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="login-footer">
                 <p>
                     <span class="badge-version">
-                        <i class="fas fa-code-branch me-1"></i> v2.0
+                        <i class="fas fa-code-branch me-1"></i> v1.0
                     </span>
                 </p>
                 <p class="mt-2">
