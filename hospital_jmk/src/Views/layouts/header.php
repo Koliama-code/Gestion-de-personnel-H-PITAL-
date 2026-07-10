@@ -21,3 +21,33 @@
         session_start();
     }
     ?>
+
+    <style>
+        /* ---- SIDEBAR FIXE ---- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            /* Largeur fixe (ajuste selon ton design) */
+            height: 100vh;
+            /* Hauteur totale de l'écran */
+            overflow-y: auto;
+            /* Scroll si le menu est trop long */
+            z-index: 1000;
+            /* Pour passer au-dessus du contenu */
+            background-color: #0d6efd;
+            /* Couleur de fond (modifiable) */
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ---- CONTENU PRINCIPAL ---- */
+        .main-content {
+            margin-left: 250px;
+            /* Décale pour ne pas être sous la sidebar */
+            padding: 20px;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+    </style>

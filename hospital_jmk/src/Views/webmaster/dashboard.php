@@ -6,7 +6,7 @@
 
         <div class="col-md-10 main-content">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>🔐 Gestion des Comptes (Admin & RH)</h2>
+                <h2>🔐 Gestion des Comptes utilisateurs</h2>
                 <a href="index.php?action=webmaster_add" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i> Nouveau compte
                 </a>
@@ -35,7 +35,7 @@
                     <tbody>
                         <?php if (empty($users)): ?>
                             <tr>
-                                <td colspan="4" class="text-center">Aucun compte admin ou RH trouvé.</td>
+                                <td colspan="4" class="text-center">Aucun compte utilisateur trouvé.</td>
                             </tr>
                         <?php endif; ?>
                         <?php foreach ($users as $u): ?>

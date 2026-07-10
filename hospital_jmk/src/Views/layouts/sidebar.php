@@ -6,24 +6,28 @@
 <div class="col-md-2 sidebar p-3">
     <h5 class="text-white"><i class="bi bi-hospital"></i> Hôpital JMK</h5>
     <ul class="nav flex-column">
-        <li class="nav-item">
-            <a href="index.php?action=dashboard"
-                class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'dashboard') ? 'active' : '' ?>">
-                <i class="bi bi-speedometer2"></i> Dashboard
-            </a>
-        </li>
+        <!-- Dashboard : visible pour tous SAUF le webmaster -->
+        <?php if ($user['role'] != 'webmaster'): ?>
+            <li class="nav-item">
+                <a href="index.php?action=dashboard"
+                    class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'dashboard') ? 'active' : '' ?>">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+            </li>
+        <?php endif; ?>
 
         <!-- Webmaster : Gestion des comptes -->
         <?php if ($user['role'] == 'webmaster'): ?>
             <li class="nav-item">
                 <a href="index.php?action=webmaster_dashboard"
                     class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'webmaster_dashboard') ? 'active' : '' ?>">
-                    🔐 Gestion comptes
+                    <i class="bi bi-shield-lock"></i> Gestion comptes
                 </a>
             </li>
         <?php endif; ?>
 
-        <?php if (in_array($user['role'], ['admin', 'rh', 'directeur'])): ?>
+        <!-- Les liens suivants sont masqués pour le webmaster (condition avec != 'webmaster') -->
+        <?php if (in_array($user['role'], ['admin', 'rh', 'directeur']) && $user['role'] != 'webmaster'): ?>
             <li class="nav-item">
                 <a href="index.php?action=employes"
                     class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'employes') ? 'active' : '' ?>">
@@ -32,8 +36,7 @@
             </li>
         <?php endif; ?>
 
-
-        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service'])): ?>
+        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service']) && $user['role'] != 'webmaster'): ?>
             <li class="nav-item">
                 <a href="index.php?action=presence_dashboard"
                     class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'presence_dashboard') ? 'active' : '' ?>">
@@ -42,7 +45,7 @@
             </li>
         <?php endif; ?>
 
-        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service'])): ?>
+        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service']) && $user['role'] != 'webmaster'): ?>
             <li class="nav-item">
                 <a href="index.php?action=conges"
                     class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'conges') ? 'active' : '' ?>">
@@ -51,9 +54,7 @@
             </li>
         <?php endif; ?>
 
-
-
-        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service'])): ?>
+        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service']) && $user['role'] != 'webmaster'): ?>
             <li class="nav-item">
                 <a href="index.php?action=plannings"
                     class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'plannings') ? 'active' : '' ?>">
@@ -62,8 +63,7 @@
             </li>
         <?php endif; ?>
 
-
-        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service', 'employe'])): ?>
+        <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service', 'employe']) && $user['role'] != 'webmaster'): ?>
             <li class="nav-item">
                 <a href="index.php?action=historique_conges"
                     class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'historique_conges') ? 'active' : '' ?>">
@@ -72,7 +72,7 @@
             </li>
         <?php endif; ?>
 
-        <?php if ($user['role'] == 'admin'): ?>
+        <?php if ($user['role'] == 'admin' && $user['role'] != 'webmaster'): ?>
             <li class="nav-item">
                 <a href="index.php?action=services"
                     class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'services') ? 'active' : '' ?>">
