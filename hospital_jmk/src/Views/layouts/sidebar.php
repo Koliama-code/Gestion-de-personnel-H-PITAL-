@@ -13,6 +13,16 @@
             </a>
         </li>
 
+        <!-- Webmaster : Gestion des comptes -->
+        <?php if ($user['role'] == 'webmaster'): ?>
+            <li class="nav-item">
+                <a href="index.php?action=webmaster_dashboard"
+                    class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'webmaster_dashboard') ? 'active' : '' ?>">
+                    🔐 Gestion comptes
+                </a>
+            </li>
+        <?php endif; ?>
+
         <?php if (in_array($user['role'], ['admin', 'rh', 'directeur'])): ?>
             <li class="nav-item">
                 <a href="index.php?action=employes"

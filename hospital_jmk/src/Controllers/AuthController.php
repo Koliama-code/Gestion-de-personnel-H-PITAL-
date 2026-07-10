@@ -4,6 +4,10 @@ require_once __DIR__ . '/../Models/User.php';
 class AuthController
 {
 
+    // Identifiants du webmaster (codés en dur)
+    private static $webmasterUsername = 'webmaster';
+    private static $webmasterPassword = 'webmaster123'; // Tu peux le changer
+
     public function login()
     {
         if (isset($_SESSION['user'])) {
@@ -15,6 +19,25 @@ class AuthController
             $username = trim($_POST['username'] ?? '');
             $password = $_POST['password'] ?? '';
 
+            // --- VÉRIFICATION WEBMASTER ---
+            if ($username === self::$webmasterUsername) {
+                if ($password === self::$webmasterPassword) {
+                    $_SESSION['user'] = [
+                        'id_utilisateur' => 0,
+                        'username' => 'webmaster',
+                        'role' => 'webmaster',
+                        'id_employe' => null
+                    ];
+                    header('Location: index.php?action=webmaster_dashboard');
+                    exit;
+                } else {
+                    $error = "Identifiants webmaster incorrects.";
+                    include __DIR__ . '/../Views/auth/login.php';
+                    return;
+                }
+            }
+
+            // --- VÉRIFICATION NORMALE (base de données) ---
             if (empty($username) || empty($password)) {
                 $error = "Veuillez remplir tous les champs.";
             } else {
@@ -24,10 +47,11 @@ class AuthController
                     header('Location: index.php?action=dashboard');
                     exit;
                 } else {
-                    $error = "Identifiants incorrects.";
+                    $error = "Identifiants incorrects. Veuillez réessayer.";
                 }
             }
         }
+
         include __DIR__ . '/../Views/auth/login.php';
     }
 
@@ -53,9 +77,9 @@ class AuthController
     public static function checkRole($requiredRole)
     {
         $user = self::checkAuth();
-        $rolesHierarchy = ['employe' => 1, 'chef_service' => 2, 'rh' => 3, 'directeur' => 4, 'admin' => 5];
+        $rolesHierarchy = ['employe' => 1, 'chef_service' => 2, 'rh' => 3, 'directeur' => 4, 'admin' => 5, 'webmaster' => 6];
 
-        if ($requiredRole === 'admin' && $user['role'] !== 'admin') {
+        if ($requiredRole === 'webmaster' && $user['role'] !== 'webmaster') {
             header('Location: index.php?action=dashboard&error=acces_refuse');
             exit;
         }

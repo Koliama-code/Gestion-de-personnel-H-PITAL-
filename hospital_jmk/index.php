@@ -2,6 +2,7 @@
 session_start();
 
 require_once 'src/Controllers/AuthController.php';
+require_once 'src/Controllers/WebmasterController.php';
 require_once 'src/Controllers/EmployeController.php';
 require_once 'src/Controllers/ServiceController.php';
 require_once 'src/Controllers/CategorieController.php';
@@ -20,6 +21,20 @@ switch ($action) {
         break;
     case 'logout':
         (new AuthController())->logout();
+        break;
+
+    //Webmaster
+    case 'webmaster_dashboard':
+        (new WebmasterController())->dashboardAction();
+        break;
+    case 'webmaster_add':
+        (new WebmasterController())->addAction();
+        break;
+    case 'webmaster_edit':
+        (new WebmasterController())->editAction();
+        break;
+    case 'webmaster_delete':
+        (new WebmasterController())->deleteAction();
         break;
 
     // Dashboard
