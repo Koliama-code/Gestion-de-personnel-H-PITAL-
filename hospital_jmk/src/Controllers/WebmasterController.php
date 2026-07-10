@@ -95,23 +95,33 @@ class WebmasterController
             $newPassword = trim($_POST['password'] ?? '');
             $newRole = $_POST['role'] ?? $editUser['role'];
 
+            $success = true;
+
             // Mettre à jour le mot de passe si fourni
             if (!empty($newPassword)) {
                 $hash = password_hash($newPassword, PASSWORD_DEFAULT);
                 $stmt = $pdo->prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id_utilisateur = ?");
-                $stmt->execute([$hash, $id]);
-            }
-
-            // Mettre à jour le rôle
-            if ($newRole !== $editUser['role']) {
-                if (in_array($newRole, ['admin', 'rh'])) {
-                    $stmt = $pdo->prepare("UPDATE utilisateurs SET role = ? WHERE id_utilisateur = ?");
-                    $stmt->execute([$newRole, $id]);
+                if (!$stmt->execute([$hash, $id])) {
+                    $success = false;
                 }
             }
 
-            header('Location: index.php?action=webmaster_dashboard&success=1');
-            exit;
+            // Mettre à jour le rôle si changé
+            if ($newRole !== $editUser['role']) {
+                if (in_array($newRole, ['admin', 'rh'])) {
+                    $stmt = $pdo->prepare("UPDATE utilisateurs SET role = ? WHERE id_utilisateur = ?");
+                    if (!$stmt->execute([$newRole, $id])) {
+                        $success = false;
+                    }
+                }
+            }
+
+            if ($success) {
+                header('Location: index.php?action=webmaster_dashboard&success=1');
+                exit;
+            } else {
+                $error = "Erreur lors de la mise à jour du compte.";
+            }
         }
 
         include __DIR__ . '/../Views/webmaster/modifier.php';

@@ -24,7 +24,7 @@
                         <div class="col-md-2">
                             <label>Année</label>
                             <select name="annee" id="annee" class="form-select">
-                                <?php for ($y = date('Y') - 2; $y <= date('Y'); $y++): ?>
+                                <?php for ($y = date('Y'); $y <= date('Y'); $y++): ?>
                                     <option value="<?= $y ?>" <?= (isset($_GET['annee']) && $_GET['annee'] == $y) ? 'selected' : '' ?>><?= $y ?></option>
                                 <?php endfor; ?>
                             </select>
@@ -73,52 +73,9 @@
                 </div>
             </div>
 
-            <!-- Graphiques -->
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-light">
-                            <h5 class="mb-0">📊 Répartition par service</h5>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="chartServices" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-light">
-                            <h5 class="mb-0">📈 Statut des employés</h5>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="chartStatut" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-light">
-                            <h5 class="mb-0">📉 Présence du jour</h5>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="chartPresenceJour" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-light">
-                            <h5 class="mb-0">📈 Évolution des congés validés (12 mois)</h5>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="chartEvolutionConges" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Stats mensuelles détaillées -->
-            <div class="card shadow-sm mt-4">
+            <div class="card shadow-sm mt-4 pt-">
                 <div class="card-header bg-light">
                     <h5 class="mb-0">📅 Récapitulatif du mois de <span id="moisLabel"></span></h5>
                 </div>
@@ -145,6 +102,52 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Graphiques -->
+            <div class="row g-4 pt-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">📊 Répartition par service</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartServices" height="100" width="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">📈 Statut des employés</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartStatut" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">📉 Présence du jour</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartPresenceJour" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">📈 Évolution des congés validés (12 mois)</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartEvolutionConges" height="100" width="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>

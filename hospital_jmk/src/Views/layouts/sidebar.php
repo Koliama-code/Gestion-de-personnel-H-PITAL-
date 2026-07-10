@@ -62,14 +62,6 @@
             </li>
         <?php endif; ?>
 
-        <?php if (in_array($user['role'], ['employe', 'chef_service', 'rh'])): ?>
-            <li class="nav-item">
-                <a href="index.php?action=mes_conges"
-                    class="nav-link <?= (isset($_GET['action']) && $_GET['action'] == 'mes_conges') ? 'active' : '' ?>">
-                    <i class="bi bi-person-vcard"></i> Mes Congés
-                </a>
-            </li>
-        <?php endif; ?>
 
         <?php if (in_array($user['role'], ['admin', 'rh', 'chef_service', 'employe'])): ?>
             <li class="nav-item">

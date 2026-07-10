@@ -45,7 +45,7 @@
                         <div class="col-md-2">
                             <label>Année</label>
                             <select name="annee" class="form-select">
-                                <?php for ($y = date('Y') - 2; $y <= date('Y'); $y++): ?>
+                                <?php for ($y = date('Y'); $y <= date('Y'); $y++): ?>
                                     <option value="<?= $y ?>" <?= (isset($_GET['annee']) && $_GET['annee'] == $y) ? 'selected' : '' ?>><?= $y ?></option>
                                 <?php endfor; ?>
                             </select>
