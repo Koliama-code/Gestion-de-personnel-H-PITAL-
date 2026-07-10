@@ -53,7 +53,7 @@ class PresenceController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_employe = $_POST['id_employe'];
-            $type = $_POST['type']; // arrivee ou depart
+            $type = $_POST['type'];
             $commentaire = htmlspecialchars(trim($_POST['commentaire'] ?? ''));
 
             if ($id_employe && $type) {
@@ -73,7 +73,7 @@ class PresenceController
     }
 
     // ============================================
-    // HISTORIQUE DES PRÉSENCES
+    // HISTORIQUE AVEC RECHERCHE
     // ============================================
     public function historiqueAction()
     {
@@ -84,24 +84,21 @@ class PresenceController
             exit;
         }
 
-        $id_employe = $_GET['id_employe'] ?? null;
-        $mois = $_GET['mois'] ?? date('m');
-        $annee = $_GET['annee'] ?? date('Y');
+        // Récupérer le mois et l'année (par défaut : mois courant)
+        $mois = isset($_GET['mois']) ? str_pad($_GET['mois'], 2, '0', STR_PAD_LEFT) : date('m');
+        $annee = isset($_GET['annee']) ? $_GET['annee'] : date('Y');
 
-        $historique = [];
-        $stats = [];
-        $employes = Employe::getAllForSelect();
+        // Récupérer les stats pour tous les employés
+        $stats = Presence::getStatsForAll($mois, $annee);
 
-        if ($id_employe) {
-            $historique = Presence::getHistorique($id_employe, $mois, $annee);
-            $stats = Presence::getStats($id_employe, $mois, $annee);
-        }
+        // Liste des statuts possibles pour l'affichage
+        $statuts = ['Présent', 'Absent', 'Retard', 'Congé', 'Maladie', 'Formation'];
 
         include __DIR__ . '/../Views/presence/historique.php';
     }
 
     // ============================================
-    // MODIFIER UNE PRÉSENCE (RH/Admin)
+    // MODIFIER UNE PRÉSENCE
     // ============================================
     public function modifierAction()
     {
@@ -118,7 +115,6 @@ class PresenceController
             exit;
         }
 
-        // Récupérer la présence
         global $pdo;
         $stmt = $pdo->prepare("SELECT p.*, e.nom, e.prenom FROM presence p 
                                JOIN employes e ON p.id_employe = e.id_employe 
@@ -132,7 +128,6 @@ class PresenceController
             $heure_arrivee = $_POST['heure_arrivee'] ?? null;
             $heure_depart = $_POST['heure_depart'] ?? null;
 
-            // Mise à jour complète
             $update = $pdo->prepare("UPDATE presence SET 
                                      heure_arrivee = ?, 
                                      heure_depart = ?, 

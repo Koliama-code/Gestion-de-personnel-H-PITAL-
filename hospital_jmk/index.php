@@ -8,6 +8,8 @@ require_once 'src/Controllers/CategorieController.php';
 require_once 'src/Controllers/SpecialiteController.php';
 require_once 'src/Controllers/CongeController.php';
 require_once 'src/Controllers/PresenceController.php';
+require_once 'src/Controllers/PlanningController.php';
+require_once 'src/Controllers/DashboardController.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'login';
 
@@ -19,11 +21,16 @@ switch ($action) {
     case 'logout':
         (new AuthController())->logout();
         break;
+
+    // Dashboard
     case 'dashboard':
-        include 'src/Views/dashboard.php';
+        (new DashboardController())->indexAction();
+        break;
+    case 'dashboard_data':
+        (new DashboardController())->dataAction();
         break;
 
-    // Gestion des employés
+    // Employés
     case 'employes':
         (new EmployeController())->listAction();
         break;
@@ -37,7 +44,7 @@ switch ($action) {
         (new EmployeController())->deleteAction();
         break;
 
-    // Gestion des services (NOUVEAU)
+    // Services
     case 'services':
         (new ServiceController())->listAction();
         break;
@@ -51,7 +58,7 @@ switch ($action) {
         (new ServiceController())->deleteAction();
         break;
 
-    // Gestion des catégories 
+    // Catégories
     case 'categories':
         (new CategorieController())->listAction();
         break;
@@ -65,7 +72,7 @@ switch ($action) {
         (new CategorieController())->deleteAction();
         break;
 
-    // Gestion des spécialités
+    // Spécialités
     case 'specialites':
         (new SpecialiteController())->listAction();
         break;
@@ -79,8 +86,7 @@ switch ($action) {
         (new SpecialiteController())->deleteAction();
         break;
 
-
-    // Gestion des congés
+    // Congés
     case 'conges':
         (new CongeController())->listAction();
         break;
@@ -96,7 +102,6 @@ switch ($action) {
     case 'supprimer_conge':
         (new CongeController())->deleteAction();
         break;
-
     case 'historique_conges':
         (new CongeController())->historiqueAction();
         break;
@@ -104,8 +109,7 @@ switch ($action) {
         (new CongeController())->retourAction();
         break;
 
-    // Gestion des présences
-
+    // Présence
     case 'presence_dashboard':
         (new PresenceController())->dashboardAction();
         break;
@@ -117,6 +121,26 @@ switch ($action) {
         break;
     case 'presence_modifier':
         (new PresenceController())->modifierAction();
+        break;
+
+    // Planning
+    case 'plannings':
+        (new PlanningController())->listAction();
+        break;
+    case 'planning_add':
+        (new PlanningController())->addAction();
+        break;
+    case 'planning_edit':
+        (new PlanningController())->editAction();
+        break;
+    case 'planning_delete':
+        (new PlanningController())->deleteAction();
+        break;
+    case 'planning_affecter':
+        (new PlanningController())->affecterAction();
+        break;
+    case 'planning_desaffecter':
+        (new PlanningController())->desaffecterAction();
         break;
 
     default:

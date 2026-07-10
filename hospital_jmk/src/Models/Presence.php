@@ -122,4 +122,84 @@ class Presence
         $stmt->execute([$id_employe, $annee, $mois]);
         return $stmt->fetchAll();
     }
+
+    // ============================================
+    // RECHERCHE AVANCÉE DANS L'HISTORIQUE
+    // ============================================
+    public static function searchHistorique($search = '', $mois = null, $annee = null, $id_employe = null)
+    {
+        global $pdo;
+
+        if (!$mois) $mois = date('m');
+        if (!$annee) $annee = date('Y');
+
+        $sql = "SELECT p.*, e.nom, e.prenom, e.matricule, s.nom_service 
+            FROM presence p
+            JOIN employes e ON p.id_employe = e.id_employe
+            LEFT JOIN services s ON e.id_service = s.id_service
+            WHERE YEAR(p.date_presence) = ? AND MONTH(p.date_presence) = ?";
+        $params = [$annee, $mois];
+
+        if ($id_employe) {
+            $sql .= " AND p.id_employe = ?";
+            $params[] = $id_employe;
+        }
+
+        if (!empty($search)) {
+            $sql .= " AND (e.nom LIKE ? OR e.prenom LIKE ? OR e.matricule LIKE ? OR p.date_presence LIKE ?)";
+            $searchTerm = "%$search%";
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+        }
+
+        $sql .= " ORDER BY p.date_presence DESC, e.nom ASC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
+// src/Models/Presence.php
+
+    /**
+     * Récupère les statistiques de présence pour tous les employés sur une période donnée
+     * @param string $mois (format 'MM')
+     * @param string $annee (format 'YYYY')
+     * @return array [id_employe, nom, prenom, matricule, statut, total]
+     */
+    public static function getStatsForAll($mois, $annee)
+    {
+        global $pdo;
+        $sql = "SELECT e.id_employe, e.nom, e.prenom, e.matricule,
+                   p.statut, COUNT(p.statut) as total
+            FROM employes e
+            LEFT JOIN presence p ON e.id_employe = p.id_employe
+                AND MONTH(p.date_presence) = ? 
+                AND YEAR(p.date_presence) = ?
+            GROUP BY e.id_employe, p.statut
+            ORDER BY e.nom ASC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$mois, $annee]);
+        $results = $stmt->fetchAll();
+
+        // Transformer pour avoir un tableau par employé avec tous les statuts
+        $stats = [];
+        foreach ($results as $row) {
+            $id = $row['id_employe'];
+            if (!isset($stats[$id])) {
+                $stats[$id] = [
+                    'id_employe' => $id,
+                    'nom' => $row['nom'],
+                    'prenom' => $row['prenom'],
+                    'matricule' => $row['matricule'],
+                    'statuts' => []
+                ];
+            }
+            if ($row['statut']) {
+                $stats[$id]['statuts'][$row['statut']] = $row['total'];
+            }
+        }
+        return $stats;
+    }
 }
