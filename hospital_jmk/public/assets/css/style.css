@@ -3,14 +3,14 @@
    ============================================ */
 
 :root {
-  --primary: #0d6efd;
-  --primary-dark: #0a58ca;
+  --primary: #08377d;
+  --primary-dark: #073d8f;
   --primary-light: #cfe2ff;
   --secondary: #6c757d;
   --success: #198754;
-  --info: #0dcaf0;
-  --warning: #ffc107;
-  --danger: #dc3545;
+  --info: #056579;
+  --warning: #846407;
+  --danger: #680610;
   --dark: #212529;
   --light: #f8f9fa;
   --white: #ffffff;
@@ -31,7 +31,7 @@ body {
    ============================================ */
 .sidebar {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0d6efd 0%, #0a58ca 100%);
+  background: linear-gradient(180deg, #06285b 0%, #042d6b 100%);
   padding: 20px 0;
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
   transition: var(--transition);
@@ -165,17 +165,17 @@ body {
 
 /* Couleurs des cartes */
 .stat-card.primary .stat-icon {
-  background: #0d6efd;
+  background: #0645a3;
 }
 .stat-card.success .stat-icon {
-  background: #198754;
+  background: #086d3e;
 }
 .stat-card.warning .stat-icon {
-  background: #ffc107;
+  background: #cd9c07;
   color: #212529;
 }
 .stat-card.info .stat-icon {
-  background: #0dcaf0;
+  background: #027d96;
   color: #212529;
 }
 .stat-card.danger .stat-icon {
@@ -185,7 +185,7 @@ body {
   background: #6f42c1;
 }
 .stat-card.teal .stat-icon {
-  background: #20c997;
+  background: #0ba678;
 }
 
 /* ============================================
@@ -289,8 +289,8 @@ body {
 }
 
 .btn-primary {
-  background: #0d6efd;
-  border-color: #0d6efd;
+  background: #0552c6;
+  border-color: #0a58cd;
 }
 .btn-primary:hover {
   background: #0a58ca;
@@ -365,7 +365,7 @@ body {
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #0d6efd;
+  border-color: #0845a0;
   box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
 }
 
@@ -387,7 +387,7 @@ body {
 }
 
 .login-card .card-header {
-  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  background: linear-gradient(135deg, #06439f, #0649af);
   padding: 30px 24px;
   color: #fff;
   border-radius: 0;

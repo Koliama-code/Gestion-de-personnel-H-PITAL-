@@ -74,7 +74,7 @@ if (session_status() === PHP_SESSION_NONE) {
             justify-content: center;
             width: 72px;
             height: 72px;
-            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+            background: linear-gradient(135deg, #042d6c, #04275c);
             border-radius: 18px;
             color: #fff;
             font-size: 32px;
@@ -164,14 +164,14 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .input-wrapper input:focus {
-            border-color: #0d6efd;
+            border-color: #0a316d;
             background: #ffffff;
             box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.10);
         }
 
         .input-wrapper input:focus+.input-icon,
         .input-wrapper input:focus~.input-icon {
-            color: #0d6efd;
+            color: #042557;
         }
 
         .input-wrapper input::placeholder {
@@ -185,7 +185,7 @@ if (session_status() === PHP_SESSION_NONE) {
         .btn-login {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+            background: linear-gradient(135deg, #073b8a, #021e49);
             border: none;
             border-radius: 12px;
             color: #fff;
