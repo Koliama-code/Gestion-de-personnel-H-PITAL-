@@ -203,7 +203,7 @@
                     label: 'Nombre d\'employés',
                     data: data.repartitionService.map(item => item.total),
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderColor: 'rgb(8, 113, 183)',
                     borderWidth: 1
                 }]
             },

@@ -16,6 +16,26 @@
 </head>
 
 <body>
+
+
+    <!-- Barre d'info utilisateur -->
+    <div class="container-fluid bg-light border-bottom py-2">
+        <div class="row align-items-center">
+            <div class="col-6">
+                <span class="text-muted small">🏥 Hôpital JMK</span>
+            </div>
+            <div class="col-6 text-end">
+                <?php if (isset($_SESSION['user'])): ?>
+                    <i class="bi bi-person-circle text-primary"></i>
+                    <strong><?= htmlspecialchars($_SESSION['user']['username']) ?></strong>
+                    <span class="badge bg-secondary ms-1"><?= htmlspecialchars($_SESSION['user']['role']) ?></span>
+                    <a href="index.php?action=logout" class="btn btn-outline-danger btn-sm ms-2">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
     <?php
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
